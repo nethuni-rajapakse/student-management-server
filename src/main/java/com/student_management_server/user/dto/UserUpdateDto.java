@@ -1,25 +1,17 @@
-package com.student_management_server.user.entity;
+package com.student_management_server.user.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
-@Table(name = "users")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Data
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
+public class UserUpdateDto {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -29,8 +21,5 @@ public class User {
     private String profilePhoto;
     private String address;
     private String role;
-    private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-
 }

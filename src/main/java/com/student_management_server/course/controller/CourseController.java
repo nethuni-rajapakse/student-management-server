@@ -2,9 +2,6 @@ package com.student_management_server.course.controller;
 
 import com.student_management_server.course.dto.CourseDto;
 import com.student_management_server.course.service.CourseService;
-import com.student_management_server.user.dto.UserDto;
-import com.student_management_server.user.dto.UserUpdateDto;
-import com.student_management_server.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

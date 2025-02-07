@@ -60,7 +60,6 @@ public class UserController {
         }
     }
 
-    // PATCH request to update a user partially by ID
     @PatchMapping("/{userId}")
     public ResponseEntity<UserDto> patchUser(@PathVariable Long userId, @RequestBody UserUpdateDto userUpdateDto) {
         UserDto updatedUser = userService.patchUser(userId, userUpdateDto);

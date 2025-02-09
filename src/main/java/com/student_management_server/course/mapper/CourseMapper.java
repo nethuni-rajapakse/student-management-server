@@ -15,6 +15,7 @@ public class CourseMapper {
         courseDto.setCourseId(course.getCourseId());
         courseDto.setCourseName(course.getCourseName());
         courseDto.setDescription(course.getDescription());
+        courseDto.setDepartment(course.getDepartment());
         courseDto.setCredits(course.getCredits());
 
         return courseDto;
@@ -30,6 +31,7 @@ public class CourseMapper {
         course.setCourseId(courseDto.getCourseId());
         course.setCourseName(courseDto.getCourseName());
         course.setDescription(courseDto.getDescription());
+        course.setDepartment(courseDto.getDepartment());
         course.setCredits(courseDto.getCredits());
 
         return course;

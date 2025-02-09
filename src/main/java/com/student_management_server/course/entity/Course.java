@@ -22,6 +22,9 @@ public class Course {
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
+    private String department;
+    @Column(nullable = false)
     private Double credits;
+
 
 }

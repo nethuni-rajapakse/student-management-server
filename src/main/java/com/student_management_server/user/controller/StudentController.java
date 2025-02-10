@@ -12,8 +12,11 @@ import java.util.Set;
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     // Endpoint to add courses to a student
     @PostMapping("/{studentId}/courses")

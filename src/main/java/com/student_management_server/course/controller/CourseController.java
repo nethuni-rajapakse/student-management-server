@@ -1,6 +1,7 @@
 package com.student_management_server.course.controller;
 
 import com.student_management_server.course.dto.CourseDto;
+import com.student_management_server.course.entity.Course;
 import com.student_management_server.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,11 @@ import java.util.List;
 @RequestMapping("/api/v1/course")
 public class CourseController {
 
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
+
+    public CourseController (CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @PostMapping
     public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto courseDto) {

@@ -14,11 +14,13 @@ import java.util.Set;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+    public StudentServiceImpl(StudentRepository studentRepository, CourseRepository courseRepository) {
+        this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
+    }
 
     @Transactional
     public void addCoursesToStudent(Long studentId, Set<Long> courseIds) {

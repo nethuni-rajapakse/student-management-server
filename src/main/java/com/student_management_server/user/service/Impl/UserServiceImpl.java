@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         // Check role and create corresponding subclass
         User user;
         if ("Student".equalsIgnoreCase(userDto.getRole())) {
-            user = new Student();  // Create a Student
+            user = new Student();
         } else {
             user = new User();  // Default to User if role is unknown
         }
@@ -42,8 +42,7 @@ public class UserServiceImpl implements UserService {
         // Set createdAt and updatedAt
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
-        System.out.println("Saving user of type: " + user.getClass().getName());
-        // Save User entity to the database
+
         User savedUser = userRepository.save(user);
 
         // Convert saved User entity back to UserDto and return

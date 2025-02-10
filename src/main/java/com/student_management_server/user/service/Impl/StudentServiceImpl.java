@@ -9,8 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -63,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
         // Remove the course if it exists
         if (student.getCourses().contains(course)) {
             student.getCourses().remove(course);
-            studentRepository.save(student); // Save updated student entity
+            studentRepository.save(student);
         } else {
             throw new RuntimeException("Student is not enrolled in this course");
         }

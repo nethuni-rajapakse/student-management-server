@@ -1,10 +1,8 @@
 package com.student_management_server.course.entity;
 
+import com.student_management_server.department.entity.Department;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
-
 
 @Entity
 @Setter
@@ -21,10 +19,11 @@ public class Course {
     private String courseName;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
-    private String department;
-    @Column(nullable = false)
-    private Double credits;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false, referencedColumnName = "departmentId")
+    private Department department;
+
+    private Double credits;
 
 }

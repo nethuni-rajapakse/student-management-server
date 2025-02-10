@@ -1,8 +1,7 @@
 package com.student_management_server.course.service;
 
 import com.student_management_server.course.dto.CourseDto;
-import com.student_management_server.user.dto.UserDto;
-import com.student_management_server.user.dto.UserUpdateDto;
+import com.student_management_server.course.entity.Course;
 
 import java.util.List;
 

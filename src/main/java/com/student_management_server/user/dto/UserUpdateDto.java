@@ -20,6 +20,5 @@ public class UserUpdateDto {
     private String gender;
     private String profilePhoto;
     private String address;
-    private String role;
     private LocalDateTime updatedAt;
 }

@@ -2,6 +2,7 @@ package com.student_management_server.user.service.Impl;
 
 import com.student_management_server.user.dto.UserDto;
 import com.student_management_server.user.dto.UserUpdateDto;
+import com.student_management_server.user.entity.Student;
 import com.student_management_server.user.entity.User;
 import com.student_management_server.user.mapper.UserMapper;
 import com.student_management_server.user.mapper.UserUpdateMapper;
@@ -27,17 +28,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        // Convert UserDto to User entity
-        User user = UserMapper.mapToUser(userDto);
-        user.setCreatedAt(LocalDateTime.now());   // Setting createdAt to the current time
-        user.setUpdatedAt(LocalDateTime.now());   // Setting updatedAt to the current time
+        // Check role and create corresponding subclass
+        User user;
+        if ("Student".equalsIgnoreCase(userDto.getRole())) {
+            user = new Student();  // Create a Student
+        } else {
+            user = new User();  // Default to User if role is unknown
+        }
 
+        // Convert UserDto to User entity
+        user = UserMapper.mapToUser(userDto);
+
+        // Set createdAt and updatedAt
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+        System.out.println("Saving user of type: " + user.getClass().getName());
         // Save User entity to the database
         User savedUser = userRepository.save(user);
 
         // Convert saved User entity back to UserDto and return
         return UserMapper.mapToUserDto(savedUser);
     }
+
+
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -84,8 +97,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public UserDto patchUser(Long userId, UserUpdateDto userUpdateDto) {
+    /*@Override
+    public UserDto patchUser(Long userId, String role) {
         Optional<User> existingUserOptional = userRepository.findById(userId);
 
         if (existingUserOptional.isEmpty()) {
@@ -93,6 +106,13 @@ public class UserServiceImpl implements UserService {
         }
 
         User existingUser = existingUserOptional.get();
+
+        // Update the role
+        if (role != null) {
+            existingUser.setRole(role);
+        }
+
+        // Map other fields from UserUpdateDto to User entity
         existingUser = UserUpdateMapper.mapToUser(userUpdateDto, existingUser);
 
         // Update the "updatedAt" timestamp
@@ -103,7 +123,8 @@ public class UserServiceImpl implements UserService {
 
         // Return the updated user as a UserDto
         return UserMapper.mapToUserDto(updatedUser);
-    }
+    }*/
+
 
 
 }

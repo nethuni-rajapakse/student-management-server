@@ -23,7 +23,7 @@ public class UserUpdateMapper {
         if (userUpdateDto.getGender() != null) existingUser.setGender(userUpdateDto.getGender());
         if (userUpdateDto.getProfilePhoto() != null) existingUser.setProfilePhoto(userUpdateDto.getProfilePhoto());
         if (userUpdateDto.getAddress() != null) existingUser.setAddress(userUpdateDto.getAddress());
-        if (userUpdateDto.getRole() != null) existingUser.setRole(userUpdateDto.getRole());
+        //if (userUpdateDto.getRole() != null) existingUser.setRole(userUpdateDto.getRole());
 
         // Set the updatedAt field to the current date and time
         existingUser.setUpdatedAt(LocalDateTime.now());

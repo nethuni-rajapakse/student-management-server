@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -59,7 +60,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/{userId}")
+    /*@PatchMapping("/{userId}")
     public ResponseEntity<UserDto> patchUser(@PathVariable Long userId, @RequestBody UserUpdateDto userUpdateDto) {
         UserDto updatedUser = userService.patchUser(userId, userUpdateDto);
         if (updatedUser != null) {
@@ -67,7 +68,7 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if the user is not found
         }
-    }
+    }*/
 
 
 }

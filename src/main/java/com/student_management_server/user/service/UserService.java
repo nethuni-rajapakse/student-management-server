@@ -17,7 +17,7 @@ public interface UserService {
 
     UserDto updateUser(Long userId, UserUpdateDto userUpdateDto);
 
-    public UserDto patchUser(Long userId, UserUpdateDto userUpdateDto);
+    //public UserDto patchUser(Long userId, UserUpdateDto userUpdateDto);
 
 
 

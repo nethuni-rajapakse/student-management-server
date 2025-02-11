@@ -15,8 +15,12 @@ import java.util.List;
 @CrossOrigin
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
@@ -69,6 +73,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if the user is not found
         }
     }*/
+
+
 
 
 }

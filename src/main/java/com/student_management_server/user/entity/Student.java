@@ -17,7 +17,7 @@ public class Student extends User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "student_course",  // This is the join table to hold the relationship
+            name = "student_course",  // Join table to hold the relationship
             joinColumns = @JoinColumn(name = "student_id"),  // Student's foreign key
             inverseJoinColumns = @JoinColumn(name = "course_id")  // Course's foreign key
     )

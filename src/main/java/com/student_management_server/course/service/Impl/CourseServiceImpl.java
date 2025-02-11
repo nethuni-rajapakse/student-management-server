@@ -5,6 +5,8 @@ import com.student_management_server.course.entity.Course;
 import com.student_management_server.course.mapper.CourseMapper;
 import com.student_management_server.course.repository.CourseRepository;
 import com.student_management_server.course.service.CourseService;
+import com.student_management_server.department.entity.Department;
+import com.student_management_server.department.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService  {
+    private final CourseRepository courseRepository;
+    private final DepartmentRepository departmentRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+    public CourseServiceImpl(CourseRepository courseRepository, DepartmentRepository departmentRepository) {
+        this.courseRepository = courseRepository;
+        this.departmentRepository = departmentRepository;
+    }
+
+
 
     @Override
     public CourseDto createCourse(CourseDto courseDto) {
-        Course course = CourseMapper.mapToCourse(courseDto);
+        Department department = departmentRepository.findById(courseDto.getDepartmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+        Course course = CourseMapper.mapToCourse(courseDto, department);
         Course savedCourse = courseRepository.save(course);
         return CourseMapper.mapToCourseDto(savedCourse);
     }

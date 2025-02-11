@@ -2,6 +2,7 @@ package com.student_management_server.course.mapper;
 
 import com.student_management_server.course.dto.CourseDto;
 import com.student_management_server.course.entity.Course;
+import com.student_management_server.department.entity.Department;
 
 public class CourseMapper {
 
@@ -15,14 +16,14 @@ public class CourseMapper {
         courseDto.setCourseId(course.getCourseId());
         courseDto.setCourseName(course.getCourseName());
         courseDto.setDescription(course.getDescription());
-        courseDto.setDepartment(course.getDepartment());
+        courseDto.setDepartmentId(course.getDepartment().getDepartmentId());
         courseDto.setCredits(course.getCredits());
 
         return courseDto;
     }
 
-    // Method to convert CourseDto to Course
-    public static Course mapToCourse(CourseDto courseDto) {
+    // Method to convert CourseDto to   Course
+    public static Course mapToCourse(CourseDto courseDto, Department department) {
         if (courseDto == null) {
             return null;
         }
@@ -31,7 +32,7 @@ public class CourseMapper {
         course.setCourseId(courseDto.getCourseId());
         course.setCourseName(courseDto.getCourseName());
         course.setDescription(courseDto.getDescription());
-        course.setDepartment(courseDto.getDepartment());
+        course.setDepartment(department);
         course.setCredits(courseDto.getCredits());
 
         return course;

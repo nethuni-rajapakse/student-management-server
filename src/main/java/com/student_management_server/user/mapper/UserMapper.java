@@ -1,6 +1,7 @@
 package com.student_management_server.user.mapper;
 
 import com.student_management_server.user.dto.UserDto;
+import com.student_management_server.user.entity.Lecturer;
 import com.student_management_server.user.entity.Student;
 import com.student_management_server.user.entity.User;
 
@@ -39,9 +40,11 @@ public class UserMapper {
 
         User user;
 
-        // Check the role to instantiate the correct subclass (Student or User)
+        // Check the role to instantiate the correct subclass
         if ("Student".equalsIgnoreCase(userDto.getRole())) {
             user = new Student();  // Create a Student instance
+        } else if ("Lecturer".equalsIgnoreCase(userDto.getRole())) {
+            user = new Lecturer();
         } else {
             user = new User();  // Default to User
         }

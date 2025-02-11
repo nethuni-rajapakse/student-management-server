@@ -15,12 +15,17 @@ import java.util.Set;
 @DiscriminatorValue("Student")
 public class Student extends User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long studentId;
+
+    //joined table for course enrollments
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "student_course",  // Join table to hold the relationship
-            joinColumns = @JoinColumn(name = "student_id"),  // Student's foreign key
-            inverseJoinColumns = @JoinColumn(name = "course_id")  // Course's foreign key
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    private Set<Course> courses = new HashSet<>();  // Default to an empty set
+    private Set<Course> courses = new HashSet<>();
 
 }

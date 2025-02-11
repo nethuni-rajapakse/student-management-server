@@ -2,13 +2,13 @@ package com.student_management_server.user.service.Impl;
 
 import com.student_management_server.user.dto.UserDto;
 import com.student_management_server.user.dto.UserUpdateDto;
+import com.student_management_server.user.entity.Lecturer;
 import com.student_management_server.user.entity.Student;
 import com.student_management_server.user.entity.User;
 import com.student_management_server.user.mapper.UserMapper;
 import com.student_management_server.user.mapper.UserUpdateMapper;
 import com.student_management_server.user.repository.UserRepository;
 import com.student_management_server.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,9 +32,13 @@ public class UserServiceImpl implements UserService {
         User user;
         if ("Student".equalsIgnoreCase(userDto.getRole())) {
             user = new Student();
+        } else if ("Lecturer".equalsIgnoreCase(userDto.getRole())) {
+            user = new Lecturer();
         } else {
             user = new User();  // Default to User if role is unknown
         }
+
+        System.out.println("Saving user of type: " + user.getClass().getName());
 
         // Convert UserDto to User entity
         user = UserMapper.mapToUser(userDto);

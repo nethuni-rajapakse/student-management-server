@@ -2,6 +2,7 @@ package com.student_management_server.department.controller;
 
 import com.student_management_server.department.dto.DepartmentDTO;
 import com.student_management_server.department.service.DepartmentService;
+import com.student_management_server.user.entity.Lecturer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/{departmentId}")
-    public ResponseEntity<DepartmentDTO> getDepaertmentbyId(@PathVariable Long departmentId) {
+    public ResponseEntity<DepartmentDTO> getDepartmentbyId(@PathVariable Long departmentId) {
         DepartmentDTO department = departmentService.getDepartmentById(departmentId);
         if (department != null) {
             return new ResponseEntity<>(department, HttpStatus.OK);

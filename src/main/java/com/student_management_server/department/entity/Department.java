@@ -1,5 +1,6 @@
 package com.student_management_server.department.entity;
 
+import com.student_management_server.user.entity.Lecturer;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,7 +15,8 @@ public class Department {
     @Column(nullable = false, unique = true)
     private String departmentName;
 
-    @Column(nullable = false)
-    private String headOfDepartment;
+    @OneToOne
+    @JoinColumn(name = "head_of_department_id", nullable = false, referencedColumnName = "userId")
+    private Lecturer headOfDepartment;
 
 }

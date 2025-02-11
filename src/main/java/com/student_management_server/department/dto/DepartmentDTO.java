@@ -1,5 +1,6 @@
 package com.student_management_server.department.dto;
 
+import com.student_management_server.user.entity.Lecturer;
 import lombok.*;
 
 @NoArgsConstructor
@@ -11,5 +12,5 @@ public class DepartmentDTO {
 
     private Long departmentId;
     private String departmentName;
-    private String headOfDepartment;
+    private Long headOfDepartmentId;
 }

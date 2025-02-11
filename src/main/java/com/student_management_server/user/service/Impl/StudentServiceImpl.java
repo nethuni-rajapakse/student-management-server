@@ -7,7 +7,6 @@ import com.student_management_server.user.repository.StudentRepository;
 import com.student_management_server.user.service.StudentService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Set;
 

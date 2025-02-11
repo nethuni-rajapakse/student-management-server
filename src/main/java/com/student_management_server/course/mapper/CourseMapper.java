@@ -22,7 +22,7 @@ public class CourseMapper {
         return courseDto;
     }
 
-    // Method to convert CourseDto to Course
+    // Method to convert CourseDto to   Course
     public static Course mapToCourse(CourseDto courseDto, Department department) {
         if (courseDto == null) {
             return null;

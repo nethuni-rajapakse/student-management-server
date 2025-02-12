@@ -11,11 +11,16 @@ public class DepartmentMapper {
         if (department == null) {
             return null;
         }
-        return new DepartmentDTO(
-                department.getDepartmentId(),
-                department.getDepartmentName(),
-                department.getHeadOfDepartment().getUserId()
-        );
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        departmentDTO.setDepartmentId(department.getDepartmentId());
+        departmentDTO.setDepartmentName(department.getDepartmentName());
+        // Handle null for the head of the department
+        if (department.getHeadOfDepartment() != null) {
+            departmentDTO.setHeadOfDepartmentId(department.getHeadOfDepartment().getLecturerId());
+        } else {
+            departmentDTO.setHeadOfDepartmentId(null);
+        }
+        return departmentDTO;
     }
 
     public static Department mapToDepEntity(DepartmentDTO departmentDTO, Lecturer headOfDep) {
@@ -26,7 +31,12 @@ public class DepartmentMapper {
         Department department = new Department();
         department.setDepartmentId(departmentDTO.getDepartmentId());
         department.setDepartmentName(departmentDTO.getDepartmentName());
-        department.setHeadOfDepartment(headOfDep);
+        // Set the head of the department only if it's not null
+        if (headOfDep != null) {
+            department.setHeadOfDepartment(headOfDep);
+        } else {
+            department.setHeadOfDepartment(null);
+        }
         return department;
     }
 }

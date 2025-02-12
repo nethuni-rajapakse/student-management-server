@@ -1,18 +1,18 @@
 package com.student_management_server.course.mapper;
 
-import com.student_management_server.course.dto.CourseDto;
+import com.student_management_server.course.dto.CourseDTO;
 import com.student_management_server.course.entity.Course;
 import com.student_management_server.department.entity.Department;
 
 public class CourseMapper {
 
     // Method to convert Course to CourseDto
-    public static CourseDto mapToCourseDto(Course course) {
+    public static CourseDTO mapToCourseDto(Course course) {
         if (course == null) {
             return null;
         }
 
-        CourseDto courseDto = new CourseDto();
+        CourseDTO courseDto = new CourseDTO();
         courseDto.setCourseId(course.getCourseId());
         courseDto.setCourseName(course.getCourseName());
         courseDto.setDescription(course.getDescription());
@@ -23,7 +23,7 @@ public class CourseMapper {
     }
 
     // Method to convert CourseDto to   Course
-    public static Course mapToCourse(CourseDto courseDto, Department department) {
+    public static Course mapToCourse(CourseDTO courseDto, Department department) {
         if (courseDto == null) {
             return null;
         }

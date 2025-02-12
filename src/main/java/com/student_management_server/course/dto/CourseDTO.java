@@ -1,7 +1,5 @@
 package com.student_management_server.course.dto;
 
-import com.student_management_server.department.entity.Department;
-import jakarta.persistence.Column;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,7 +7,7 @@ import lombok.*;
 @Setter
 @Getter
 @Data
-public class CourseDto {
+public class CourseDTO {
 
     private Long courseId;
     private String courseName;

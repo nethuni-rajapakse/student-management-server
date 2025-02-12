@@ -1,19 +1,15 @@
 package com.student_management_server.department.service.Impl;
 
-import com.student_management_server.course.dto.CourseDto;
 import com.student_management_server.department.dto.DepartmentDTO;
 import com.student_management_server.department.entity.Department;
 import com.student_management_server.department.mapper.DepartmentMapper;
 import com.student_management_server.department.repository.DepartmentRepository;
 import com.student_management_server.department.service.DepartmentService;
 import com.student_management_server.user.entity.Lecturer;
-import com.student_management_server.user.entity.Student;
 import com.student_management_server.user.repository.LecturerRepository;
-import com.student_management_server.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
-import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -29,27 +25,51 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDTO createDep(DepartmentDTO departmentDTO) {
+        //Department Head is null as it is assigned later
+        Department department = DepartmentMapper.mapToDepEntity(departmentDTO, null);
 
-        Lecturer headOfDep = lecturerRepository.findById(departmentDTO.getHeadOfDepartmentId())
-                .orElseThrow(() -> new RuntimeException("Lecturer not found"));
-        Department department = DepartmentMapper.mapToDepEntity(departmentDTO, headOfDep);
-        Department savedDepartment = departmentRepository.save(department);
-        return DepartmentMapper.mapToDepDTO(savedDepartment);
+        try {
+            Department savedDepartment = departmentRepository.save(department);
+            return DepartmentMapper.mapToDepDTO(savedDepartment);
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("Department name already exists: " + department.getDepartmentName());
+        }
     }
 
     @Override
     public DepartmentDTO getDepartmentById(Long departmentId) {
-        Optional<Department> department = departmentRepository.findById(departmentId);
-        return department.map(DepartmentMapper::mapToDepDTO).orElse(null);
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Department not found with the given Id"));
+        return DepartmentMapper.mapToDepDTO(department);
     }
 
-    /*@Override
-    public boolean deleteDepartment(Long departmentId) {
-        Optional<Department> department = departmentRepository.findById(departmentId);
-        if (department.isPresent()) {
-            departmentRepository.delete(department.get());
-            return true;
+    @Override
+    public DepartmentDTO updatedDepartment(Long departmentId, DepartmentDTO departmentDTO) {
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Department not found with the given Id"));
+
+        if (departmentDTO.getDepartmentName() != null) department.setDepartmentName(departmentDTO.getDepartmentName());
+
+        if (departmentDTO.getHeadOfDepartmentId() != null) {
+            Lecturer headOfDep = lecturerRepository.findById(departmentDTO.getHeadOfDepartmentId())
+                    .orElseThrow(() -> new EntityNotFoundException("Lecturer not found with the given Id"));
+
+            // Check if the lecturer belongs to the department
+            if (!headOfDep.getDepartment().getDepartmentId().equals(departmentId)) {
+                throw new RuntimeException("The lecturer does not belong to this department");
+            }
+            department.setHeadOfDepartment(headOfDep);
         }
-        return false;
-    }*/
+
+        Department savedDep = departmentRepository.save(department);
+        return DepartmentMapper.mapToDepDTO(savedDep);
+    }
+
+    @Override
+    public void deleteDepartment(Long departmentId) {
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Department not found with the given Id"));
+        departmentRepository.delete(department);
+    }
+
 }

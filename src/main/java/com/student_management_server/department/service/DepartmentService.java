@@ -1,6 +1,5 @@
 package com.student_management_server.department.service;
 
-import com.student_management_server.course.dto.CourseDto;
 import com.student_management_server.department.dto.DepartmentDTO;
 
 public interface DepartmentService {
@@ -9,7 +8,9 @@ public interface DepartmentService {
 
     DepartmentDTO getDepartmentById(Long departmentId);
 
-    //boolean deleteDepartment(Long departmentId);
+    DepartmentDTO updatedDepartment(Long departmentId, DepartmentDTO departmentDTO);
+
+    void deleteDepartment(Long departmentId);
 
 
 

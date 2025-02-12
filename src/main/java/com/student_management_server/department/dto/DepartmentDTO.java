@@ -1,13 +1,14 @@
 package com.student_management_server.department.dto;
 
-import com.student_management_server.user.entity.Lecturer;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Data
 public class DepartmentDTO {
 
     private Long departmentId;

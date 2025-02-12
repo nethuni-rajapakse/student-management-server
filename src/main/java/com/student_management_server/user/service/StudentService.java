@@ -18,11 +18,5 @@ public interface StudentService {
 
     StudentDTO updateStudent(Long studentId, StudentDTO studentDTO);
 
-    void addCoursesToStudent(Long studentId, Set<Long> courseIds);
-
-    Set<Course> getStudentCourses(Long studentId);
-
-    void removeCourseFromStudent(Long studentId, Long courseId);
-
 
 }

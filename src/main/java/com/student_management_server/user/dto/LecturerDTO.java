@@ -1,6 +1,5 @@
 package com.student_management_server.user.dto;
 
-import com.student_management_server.department.entity.Department;
 import com.student_management_server.user.entity.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

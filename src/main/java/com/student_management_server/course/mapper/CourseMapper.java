@@ -6,8 +6,7 @@ import com.student_management_server.department.entity.Department;
 
 public class CourseMapper {
 
-    // Method to convert Course to CourseDto
-    public static CourseDTO mapToCourseDto(Course course) {
+    public static CourseDTO mapToCourseDTO(Course course) {
         if (course == null) {
             return null;
         }
@@ -22,7 +21,6 @@ public class CourseMapper {
         return courseDto;
     }
 
-    // Method to convert CourseDto to   Course
     public static Course mapToCourse(CourseDTO courseDto, Department department) {
         if (courseDto == null) {
             return null;

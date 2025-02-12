@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,7 +40,7 @@ public class CourseServiceImpl implements CourseService  {
 
         try {
             Course savedCourse = courseRepository.save(course);
-            return CourseMapper.mapToCourseDto(savedCourse);
+            return CourseMapper.mapToCourseDTO(savedCourse);
         } catch (DataIntegrityViolationException ex) {
             throw new RuntimeException("Course name already exists: " + course.getCourseName());
         }
@@ -51,7 +50,7 @@ public class CourseServiceImpl implements CourseService  {
     public List<CourseDTO> getAllCourses() {
         List<Course> courses = courseRepository.findAll();
         return courses.stream()
-                .map(CourseMapper::mapToCourseDto)
+                .map(CourseMapper::mapToCourseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -59,7 +58,7 @@ public class CourseServiceImpl implements CourseService  {
     public CourseDTO getCourseById(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException("Course not found with the given Id"));
-        return CourseMapper.mapToCourseDto(course);
+        return CourseMapper.mapToCourseDTO(course);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class CourseServiceImpl implements CourseService  {
             existingCourse.setDepartment(department);
         }
         Course savedCourse = courseRepository.save(existingCourse);
-        return CourseMapper.mapToCourseDto(savedCourse);
+        return CourseMapper.mapToCourseDTO(savedCourse);
 
     }
 

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +39,9 @@ public class Course {
 
     @Column(nullable = false)
     private Double credits;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Enrollment> enrollments;
 
 
 }

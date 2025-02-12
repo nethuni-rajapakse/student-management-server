@@ -5,10 +5,8 @@ import com.student_management_server.user.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.student_management_server.course.entity.Course;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/student")
@@ -49,26 +47,4 @@ public class StudentController {
         StudentDTO updatedStudent = studentService.updateStudent(studentId, studentDTO);
         return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     }
-
-
-    // Endpoint to add courses to a student
-    @PostMapping("/{studentId}/courses")
-    public ResponseEntity<String> addCoursesToStudent(@PathVariable Long studentId, @RequestBody Set<Long> courseIds) {
-        studentService.addCoursesToStudent(studentId, courseIds);
-        return ResponseEntity.status(HttpStatus.OK).body("Courses added successfully.");
-    }
-
-
-    @GetMapping("/{studentId}/courses")
-    public ResponseEntity<Set<Course>> getStudentCourses(@PathVariable Long studentId) {
-        Set<Course> courses = studentService.getStudentCourses(studentId);
-        return new ResponseEntity<>(courses, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{studentId}/courses/{courseId}")
-    public ResponseEntity<String> removeCourseFromStudent(@PathVariable Long studentId, @PathVariable Long courseId) {
-            studentService.removeCourseFromStudent(studentId, courseId);
-            return ResponseEntity.ok("Course removed successfully.");
-    }
-
 }

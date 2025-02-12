@@ -1,30 +1,30 @@
 package com.student_management_server.user.dto;
 
-import lombok.*;
+import com.student_management_server.department.entity.Department;
+import com.student_management_server.user.entity.Gender;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Data
-public class UserDto {
-
-    private Long userId;
+public class LecturerDTO {
+    private Long lecturerId;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private String email;
     private String phoneNumber;
-    private String gender;
+    private Gender gender;
     private String profilePhoto;
     private String address;
-    private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-
+    private Long departmentId;
 }

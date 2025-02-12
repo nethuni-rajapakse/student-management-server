@@ -1,61 +1,75 @@
 package com.student_management_server.course.controller;
 
-import com.student_management_server.course.dto.CourseDto;
+import com.student_management_server.course.dto.CourseDTO;
 import com.student_management_server.course.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.student_management_server.user.entity.Lecturer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/course")
 public class CourseController {
 
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
+
+    public CourseController (CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @PostMapping
-    public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto courseDto) {
-        CourseDto createdCourse = courseService.createCourse(courseDto);
+    public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO courseDto) {
+        CourseDTO createdCourse = courseService.createCourse(courseDto);
         return new ResponseEntity<>(createdCourse, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<CourseDto>> getAllCourses() {
-        List<CourseDto> courses = courseService.getAllCourses();
+    public ResponseEntity<List<CourseDTO>> getAllCourses() {
+        List<CourseDTO> courses = courseService.getAllCourses();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<CourseDto> getCoursesById(@PathVariable Long courseId) {
-        CourseDto courses = courseService.getCourseById(courseId);
-        if (courses != null) {
-            return new ResponseEntity<>(courses, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CourseDTO> getCoursesById(@PathVariable Long courseId) {
+        CourseDTO courses = courseService.getCourseById(courseId);
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long courseId) {
-        boolean isDeleted = courseService.deleteCourse(courseId);
-        if (isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        courseService.deleteCourse(courseId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{courseId}")
-    public ResponseEntity<CourseDto> updateCourse(@PathVariable Long courseId, @RequestBody CourseDto courseUpdateDto) {
-        CourseDto updatedCourse = courseService.updateCourse(courseId, courseUpdateDto);
-        if (updatedCourse != null) {
-            return new ResponseEntity<>(updatedCourse, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CourseDTO> updateCourse(@PathVariable Long courseId, @RequestBody CourseDTO courseUpdateDto) {
+        CourseDTO updatedCourse = courseService.updateCourse(courseId, courseUpdateDto);
+        return new ResponseEntity<>(updatedCourse, HttpStatus.OK);
     }
+
+    @PostMapping("/{courseId}/lecturers")
+    public ResponseEntity<String> addLecturersToCourse (@PathVariable Long courseId, @RequestBody Set<Long> lecturerIds) {
+        courseService.addLecturersToCourse(courseId, lecturerIds);
+        return ResponseEntity.status(HttpStatus.OK).body("Lecturers added successfully.");
+
+    }
+
+    @GetMapping("/{courseId}/lecturers")
+    public ResponseEntity<Set<Lecturer>> getLecturersForCourse(@PathVariable Long courseId) {
+          Set<Lecturer> lecturers = courseService.getLecturersByCourse(courseId);
+          return new ResponseEntity<>(lecturers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{courseId}/lecturers/{lecturerId}")
+    public ResponseEntity<String> removeLecturerFromCourse(@PathVariable Long courseId, @PathVariable Long lecturerId) {
+        courseService.removeLecturerFromCourse(lecturerId, courseId);
+        return ResponseEntity.ok("Lecturer removed successfully.");
+    }
+
+
 
 }

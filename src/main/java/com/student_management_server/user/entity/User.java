@@ -1,38 +1,38 @@
 package com.student_management_server.user.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
 
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private String email;
     private String phoneNumber;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     private String profilePhoto;
     private String address;
-    private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-
 }
+

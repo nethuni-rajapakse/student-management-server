@@ -1,6 +1,8 @@
 package com.student_management_server.user.entity;
 
-import com.student_management_server.course.entity.Course;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.student_management_server.department.entity.Department;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,28 +10,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Student extends User {
+@NoArgsConstructor
+@DiscriminatorValue("Lecturer")
+public class Lecturer extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentId;
+    private Long lecturerId;
 
-    //joined table for course enrollments
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private Set<Course> courses = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false, referencedColumnName = "departmentId")
+    @JsonBackReference
+    private Department department;
+
 
     @PrePersist
     public void prePersist() {

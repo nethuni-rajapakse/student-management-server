@@ -1,16 +1,22 @@
 package com.student_management_server.user.service;
 
 import com.student_management_server.course.entity.Course;
+import com.student_management_server.user.dto.StudentDTO;
 
+import java.util.List;
 import java.util.Set;
 
 public interface StudentService {
 
-    void addCoursesToStudent(Long studentId, Set<Long> courseIds);
+    StudentDTO createStudent(StudentDTO studentDTO);
 
-    Set<Course> getStudentCourses(Long studentId);
+    List<StudentDTO> getAllStudents();
 
-    void removeCourseFromStudent(Long studentId, Long courseId);
+    StudentDTO getStudentById(Long studentId);
+
+    void deleteStudent(Long studentId);
+
+    StudentDTO updateStudent(Long studentId, StudentDTO studentDTO);
 
 
 }

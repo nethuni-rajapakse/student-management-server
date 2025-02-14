@@ -1,10 +1,13 @@
 package com.student_management_server.course.entity;
 
+import com.student_management_server.department.entity.Department;
+import com.student_management_server.user.entity.Lecturer;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -17,14 +20,28 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String courseName;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
-    private String department;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false, referencedColumnName = "departmentId")
+    private Department department;
+
+    @ManyToMany
+    @JoinTable(
+            name = "course_lecturer",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "courseId"),
+            inverseJoinColumns = @JoinColumn(name = "lecturer_id", referencedColumnName = "lecturerId")
+    )
+    private Set<Lecturer> lecturers = new HashSet<>();
+
     @Column(nullable = false)
     private Double credits;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Enrollment> enrollments;
 
 
 }

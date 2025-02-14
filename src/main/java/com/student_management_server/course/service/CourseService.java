@@ -28,5 +28,7 @@ public interface CourseService {
 
     List<CourseDTO> getCursesByDepartmentId(Long departmentId);
 
+    List<CourseDTO> searchCourses(String query);
+
 
 }

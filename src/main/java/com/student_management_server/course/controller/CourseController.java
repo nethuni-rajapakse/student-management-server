@@ -77,9 +77,11 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-
-
-
+    //Course search REST API
+    @GetMapping("/search")
+    public ResponseEntity<List<CourseDTO>> searchCourse(@RequestParam("query") String query){
+        return new ResponseEntity<>(courseService.searchCourses(query), HttpStatus.OK);
+    }
 
 
 }

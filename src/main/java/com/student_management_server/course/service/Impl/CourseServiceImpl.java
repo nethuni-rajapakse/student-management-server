@@ -144,5 +144,13 @@ public class CourseServiceImpl implements CourseService  {
 
     }
 
+    @Override
+    public List<CourseDTO> searchCourses(String query) {
+        List<Course> courses = courseRepository.searchCourse(query);
+        return courses.stream()
+                .map(CourseMapper::mapToCourseDTO)
+                .collect(Collectors.toList());
+    }
+
 
 }

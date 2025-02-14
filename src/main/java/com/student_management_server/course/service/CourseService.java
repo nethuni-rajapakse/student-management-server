@@ -1,6 +1,7 @@
 package com.student_management_server.course.service;
 
 import com.student_management_server.course.dto.CourseDTO;
+import com.student_management_server.course.dto.CourseGetDTO;
 import com.student_management_server.course.entity.Course;
 import com.student_management_server.user.entity.Lecturer;
 
@@ -24,6 +25,8 @@ public interface CourseService {
     Set<Lecturer> getLecturersByCourse(Long courseId);
 
     void removeLecturerFromCourse(Long lecturerId, Long courseId);
+
+    List<CourseDTO> getCursesByDepartmentId(Long departmentId);
 
 
 }

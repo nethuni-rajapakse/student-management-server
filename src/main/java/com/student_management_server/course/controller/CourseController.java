@@ -1,6 +1,7 @@
 package com.student_management_server.course.controller;
 
 import com.student_management_server.course.dto.CourseDTO;
+import com.student_management_server.course.dto.CourseGetDTO;
 import com.student_management_server.course.service.CourseService;
 import com.student_management_server.user.entity.Lecturer;
 import org.springframework.http.HttpStatus;
@@ -69,6 +70,15 @@ public class CourseController {
         courseService.removeLecturerFromCourse(lecturerId, courseId);
         return ResponseEntity.ok("Lecturer removed successfully.");
     }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<List<CourseDTO>> getCoursesInDep(@PathVariable Long departmentId) {
+        List<CourseDTO> courses = courseService.getCursesByDepartmentId(departmentId);
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+
+
 
 
 

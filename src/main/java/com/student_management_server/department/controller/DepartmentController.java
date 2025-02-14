@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/department")
 public class DepartmentController {
@@ -25,11 +27,13 @@ public class DepartmentController {
     @GetMapping("/{departmentId}")
     public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable Long departmentId) {
         DepartmentDTO department = departmentService.getDepartmentById(departmentId);
-        if (department != null) {
-            return new ResponseEntity<>(department, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(department, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DepartmentDTO>> getAllDepartments() {
+        List<DepartmentDTO> departments = departmentService.getAllDepartments();
+        return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
     @PutMapping("/{departmentId}")

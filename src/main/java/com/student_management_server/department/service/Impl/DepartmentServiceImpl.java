@@ -1,5 +1,6 @@
 package com.student_management_server.department.service.Impl;
 
+import com.student_management_server.course.mapper.CourseMapper;
 import com.student_management_server.department.dto.DepartmentDTO;
 import com.student_management_server.department.entity.Department;
 import com.student_management_server.department.mapper.DepartmentMapper;
@@ -10,6 +11,9 @@ import com.student_management_server.user.repository.LecturerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -41,6 +45,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new EntityNotFoundException("Department not found with the given Id"));
         return DepartmentMapper.mapToDepDTO(department);
+    }
+
+    @Override
+    public List<DepartmentDTO> getAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
+        return departments.stream()
+                .map(DepartmentMapper::mapToDepDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

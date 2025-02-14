@@ -1,7 +1,9 @@
 package com.student_management_server.course.service.Impl;
 
 import com.student_management_server.course.dto.CourseDTO;
+import com.student_management_server.course.dto.CourseGetDTO;
 import com.student_management_server.course.entity.Course;
+import com.student_management_server.course.mapper.CourseGetMapper;
 import com.student_management_server.course.mapper.CourseMapper;
 import com.student_management_server.course.repository.CourseRepository;
 import com.student_management_server.course.service.CourseService;
@@ -131,6 +133,16 @@ public class CourseServiceImpl implements CourseService  {
         }
     }
 
+    @Override
+    public List<CourseDTO> getCursesByDepartmentId(Long departmentId) {
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Department not found with given Id"));
+        List<Course> courses = courseRepository.getCourseByDepartment(department);
+        return courses.stream()
+                .map(CourseMapper::mapToCourseDTO)
+                .collect(Collectors.toList());
+
+    }
 
 
 }
